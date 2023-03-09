@@ -19,7 +19,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('rating');
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->default(0);
+            $table->unsignedBigInteger('user_id')->default(0);
             $table->timestamps();
         });
     }
