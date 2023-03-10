@@ -24,7 +24,10 @@ class CreateMovieRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'description' => ['required', 'string', 'max:255'],
+            'image' => 'nullable',
+            'rating' => ['required', 'between:1,10'],
         ];
     }
 }

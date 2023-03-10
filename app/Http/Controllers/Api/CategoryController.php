@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Categories\CreateCategoryRequest;
+use App\Http\Requests\Categories\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+
+        return $categories;
     }
 
     /**
@@ -27,7 +30,15 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        
+        $category = new Category;
+
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->image = $request->image;
+
+        $category->save();
+
+        return response()->json(['message' => 'Data has been stored successfully!']);
     }
 
     /**
@@ -38,7 +49,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+
+        if ($category) {
+            return $category;
+        } else {
+            return "Category not found";
+        }
     }
 
     /**
@@ -48,9 +65,17 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        //
+        $category = Category::find($id);
+
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->image = $request->image;
+
+        $category->save();
+
+        return response()->json(['message' => 'Category updated successfully']);
     }
 
     /**
@@ -61,6 +86,16 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+
+        if ($category) {
+
+            $category->delete();
+
+            return response()->json(['message' => 'Category has been deleted.']);
+        } else {
+
+            return response()->json(['message' => 'Category does not exit.']);
+        }
     }
 }
