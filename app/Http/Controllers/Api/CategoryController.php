@@ -38,7 +38,11 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return response()->json(['message' => 'Data has been stored successfully!']);
+        return response()->json([
+            'status' => true,
+            'data' => $category,
+            'message' => 'Data has been stored successfully!'
+        ], 201);
     }
 
     /**
@@ -52,9 +56,16 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         if ($category) {
-            return $category;
+            return response()->json([
+                'status' => true,
+                'data' => $category,
+            ], 200);
         } else {
-            return "Category not found";
+            return response()->json([
+                'status' => false,
+                'data' => [],
+                'message' => 'Not Found'
+            ], 404);
         }
     }
 
@@ -75,7 +86,11 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return response()->json(['message' => 'Category updated successfully']);
+        return response()->json([
+            'status' => true,
+            'data' => $category,
+            'message' => 'Category updated successfully'
+        ], 200);
     }
 
     /**
@@ -92,10 +107,13 @@ class CategoryController extends Controller
 
             $category->delete();
 
-            return response()->json(['message' => 'Category has been deleted.']);
+            return response()->json([], 204);
         } else {
-
-            return response()->json(['message' => 'Category does not exit.']);
+            return response()->json([
+                'status' => false,
+                'data' => [],
+                'message' => 'Not Found'
+            ], 404);
         }
     }
 }
