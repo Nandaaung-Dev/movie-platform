@@ -19,7 +19,10 @@ class MovieController extends Controller
     {
         $movies = Movie::all();
 
-        return $movies;
+        return response()->json([
+            'status' => true,
+            'data' => $movies,
+        ], 200);
     }
 
     /**
@@ -38,7 +41,11 @@ class MovieController extends Controller
 
         $movie->save();
 
-        return response()->json(["message" => "Data has been stored successfully!"]);
+        return response()->json([
+            'status' => true,
+            'data' => $movie,
+            "message" => "Data has been stored successfully!"
+        ], 201);
     }
 
     /**
@@ -52,9 +59,16 @@ class MovieController extends Controller
         $movie = Movie::find($id);
 
         if ($movie) {
-            return $movie;
+            return response()->json([
+                'status' => true,
+                'data' => $movie,
+            ], 200);
         } else {
-            return "Data not found";
+            return response()->json([
+                'status' => false,
+                'data' => [],
+                'message' => 'Not Found'
+            ], 404);
         }
     }
 
@@ -76,7 +90,11 @@ class MovieController extends Controller
 
         $movie->save();
 
-        return response()->json(['message' => 'Movie updated successfully']);
+        return response()->json([
+            'status' => true,
+            'data' => $movie,
+            'message' => 'Movie updated successfully'
+        ], 200);
     }
 
     /**
@@ -93,10 +111,13 @@ class MovieController extends Controller
 
             $movie->delete();
 
-            return response()->json(['message' => 'Movie has been deleted.']);
+            return response()->json([], 204);
         } else {
-
-            return response()->json(['message' => 'Movie does not exit.']);
+            return response()->json([
+                'status' => false,
+                'data' => [],
+                'message' => 'Not Found'
+            ], 404);
         }
     }
 }

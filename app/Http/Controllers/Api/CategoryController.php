@@ -19,7 +19,10 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return $categories;
+        return response()->json([
+            'status' => true,
+            'data' => $categories,
+        ], 200);
     }
 
     /**
