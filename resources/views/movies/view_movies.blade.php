@@ -7,8 +7,9 @@
                 <h5 class="card-title">{{ $movie->name }}</h5>
                 <p class="card-text">{{ $movie->description }}</p>
                 <p class="card-text">Rating:{{ $movie->rating }}</p>
-                <p class="card-text">Category: <b>{{ $movie->category_id }}</b></p>
-                <img src="{{ url('storage/images/' . $movie->image) }}" style="height: 200px; width: 150px;">
+                <a class="card-link text-decoration-none" href="{{ url("/movies/detail/$movie->id") }}">
+                    See More....
+                </a>
             </div>
         </div>
     @endforeach

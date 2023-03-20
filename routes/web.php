@@ -20,4 +20,5 @@ Route::get('/', function () {
 
 Route::get('/add-movies', [MovieController::class, 'addMovies'])->name('movies.add');
 Route::post('/store-movies', [MovieController::class, 'storeMovies'])->name('movies.store');
-Route::get('/view-movies', [MovieController::class, 'viewMOvies'])->name('movies.view');
+Route::get('/view-movies', [MovieController::class, 'viewMovies'])->name('movies.view');
+Route::get("/movies/detail/{id}", [MovieController::class, 'detailMovie']);

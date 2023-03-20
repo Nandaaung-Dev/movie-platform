@@ -46,4 +46,10 @@ class MovieController extends Controller
         return view('movies.view_movies', compact('movies'));
         // dd($movies);
     }
+
+    public function detailMovie($id)
+    {
+        $movie = Movie::find($id);
+        return view('movies.detail_movies', ['movie' => $movie]);
+    }
 }
